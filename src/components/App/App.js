@@ -1,12 +1,21 @@
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 import './App.css';
 
 import Planets from '../Planets';
+import { Films, Residents } from '../PlanetDetails';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Star Wars Planets</h1>
-      <Planets />
+    <div className='App'>
+      <Router>
+        <Route exact path='/'>
+          <Planets />
+        </Route>
+        <Route exact path='/planets/:planetId/films'>
+          <Films />
+        </Route>
+      </Router>
     </div>
   );
 }
