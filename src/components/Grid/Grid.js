@@ -1,12 +1,28 @@
 import './Grid.css';
 
 function Grid({ data: { header = [], values = [], actions = [] } }) {
+  let numberTypeHeaders = [];
+  let stringTypeHeaders = [];
+  header.map((item) => {
+    if (item.type === 'number') {
+      numberTypeHeaders = [...numberTypeHeaders, item];
+    } else {
+      stringTypeHeaders = [...stringTypeHeaders, item];
+    }
+  });
+
+  const sortedHeader = [...stringTypeHeaders, ...numberTypeHeaders];
+
+  console.log(sortedHeader);
+
   return (
     <table className='gridTable'>
       <thead>
         <tr>
-          {header.map((colName) => (
-            <th key={colName}>{colName}</th>
+          {sortedHeader.map((item) => (
+            <th key={item.id}>
+              {item.label} ({item.type})
+            </th>
           ))}
           {!!actions.length && <th>Actions</th>}
         </tr>
@@ -14,15 +30,15 @@ function Grid({ data: { header = [], values = [], actions = [] } }) {
       <tbody>
         {values.map((row, index) => (
           <tr key={index}>
-            {header.map((colName) => (
-              <td key={colName}>{row[colName]}</td>
+            {sortedHeader.map((item) => (
+              <td key={item.id}>{row[item.id]}</td>
             ))}
             {!!actions.length && (
               <td className='gridActions'>
-                {actions.map(({ label, action, id }) =>
-                  row[id].length > 0 ? (
+                {actions.map(({ label, action, id, checkVisible }) =>
+                  checkVisible && row[id].length == 0 ? null : (
                     <button onClick={() => action(row)}>{label}</button>
-                  ) : null
+                  )
                 )}
               </td>
             )}

@@ -5,12 +5,14 @@ import {
   RECEIVE_PLANETS,
   GO_TO_FILMS,
   GO_TO_RESIDENTS,
+  VIEW_PLANET,
 } from '../actions';
 
 const planets = (
   state = {
     isFetching: false,
     items: [],
+    planetDetail: null,
   },
   action
 ) => {
@@ -25,6 +27,11 @@ const planets = (
         ...state,
         isFetching: false,
         items: action.planets,
+      };
+    case VIEW_PLANET:
+      return {
+        ...state,
+        planetDetail: action.planet,
       };
     default:
       return state;

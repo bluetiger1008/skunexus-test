@@ -25,7 +25,33 @@ const Films = () => {
     );
 
     const data = {
-      header: ['title', 'producer', 'episode_id', 'opening_crawl', 'director'],
+      header: [
+        {
+          id: 'title',
+          label: 'title',
+          type: 'string',
+        },
+        {
+          id: 'producer',
+          label: 'producer',
+          type: 'string',
+        },
+        {
+          id: 'episode_id',
+          label: 'episode_id',
+          type: 'string',
+        },
+        {
+          id: 'opening_crawl',
+          label: 'opening_crawl',
+          type: 'string',
+        },
+        {
+          id: 'director',
+          label: 'director',
+          type: 'string',
+        },
+      ],
       values: filmDataArr,
       actions: [],
     };

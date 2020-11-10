@@ -1,3 +1,3 @@
-import CreatePlanet from './CreatePlanet';
+import EditPlanet from './EditPlanet';
 
-export default CreatePlanet;
+export default EditPlanet;

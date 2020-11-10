@@ -2,6 +2,7 @@ export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const RECEIVE_PLANETS = 'RECEIVE_PLANETS';
 export const GO_TO_FILMS = 'GO_TO_FILMS';
 export const GO_TO_RESIDENTS = 'GO_TO_RESIDENTS';
+export const VIEW_PLANET = 'VIEW_PLANET';
 
 export const requestPlanets = () => ({
   type: REQUEST_PLANETS,
@@ -30,6 +31,11 @@ export const fetchPlanets = () => (dispatch, getState) => {
       .then((json) => dispatch(receivePlanets(json)));
   }
 };
+
+export const viewPlanet = (planet) => ({
+  type: VIEW_PLANET,
+  planet,
+});
 
 export const goToFilms = (films) => ({
   type: GO_TO_FILMS,

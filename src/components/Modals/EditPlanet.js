@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-import './CreatePlanet.css';
+import './EditPlanet.css';
 
 Modal.setAppElement('#root');
 
@@ -16,17 +16,8 @@ const customStyles = {
   },
 };
 
-const CreatePlanet = ({ open, closeModal }) => {
-  const [formValues, setFormValues] = useState({
-    name: '',
-    rotation_period: 0,
-    orbital_period: 0,
-    diameter: 0,
-    climate: '',
-    gravity: '',
-    terrain: '',
-    surface_water: 0,
-  });
+const CreatePlanet = ({ planet, open, closeModal }) => {
+  const [formValues, setFormValues] = useState(planet);
   const [isFormError, setIsFormError] = useState(false);
 
   const onChangeInput = (e) => {
@@ -49,7 +40,7 @@ const CreatePlanet = ({ open, closeModal }) => {
       setIsFormError(true);
     } else {
       setIsFormError(false);
-      console.log('submit form');
+      console.log('submit form', formValues);
     }
   };
 
@@ -95,7 +86,7 @@ const CreatePlanet = ({ open, closeModal }) => {
       style={customStyles}
       contentLabel='Example Modal'
     >
-      <h2>Create new planet</h2>
+      <h2>Edit planet</h2>
 
       <form className='create-form' onSubmit={onSubmitForm}>
         {renderInput({ type: 'text', fieldName: 'name', placeholder: 'name' })}

@@ -26,13 +26,41 @@ const Residents = () => {
 
     const data = {
       header: [
-        'name',
-        'skin_color',
-        'gender',
-        'height',
-        'hair_color',
-        'eye_color',
-        'mass',
+        {
+          id: 'name',
+          label: 'name',
+          type: 'string',
+        },
+        {
+          id: 'skin_color',
+          label: 'skin_color',
+          type: 'string',
+        },
+        {
+          id: 'gender',
+          label: 'gender',
+          type: 'string',
+        },
+        {
+          id: 'height',
+          label: 'height',
+          type: 'number',
+        },
+        {
+          id: 'hair_color',
+          label: 'hair color',
+          type: 'string',
+        },
+        {
+          id: 'eye_color',
+          label: 'eye color',
+          type: 'string',
+        },
+        {
+          id: 'mass',
+          label: 'mass',
+          type: 'string',
+        },
       ],
       values: residentsArr,
       actions: [],

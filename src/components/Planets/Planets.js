@@ -2,10 +2,15 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchPlanets, goToFilms, goToResidents } from '../../actions';
+import {
+  fetchPlanets,
+  viewPlanet,
+  goToFilms,
+  goToResidents,
+} from '../../actions';
 import './Planets.css';
 import Grid from '../Grid';
-import CreatePlanet from '../Modals';
+import EditPlanet from '../Modals';
 
 function Planets() {
   let history = useHistory();
@@ -13,10 +18,16 @@ function Planets() {
   const dispatch = useDispatch();
   const planets = useSelector((state) => state.planets.items);
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [planetToEdit, setPlanetToEdit] = useState(null);
 
   useEffect(() => {
     dispatch(fetchPlanets());
   }, []);
+
+  const onEditPlanet = (planet) => {
+    setPlanetToEdit(planet);
+    setOpenCreateModal(true);
+  };
 
   useEffect(() => {
     if (planets.length > 0) {
@@ -27,17 +38,61 @@ function Planets() {
       }));
       const data = {
         header: [
-          'name',
-          'rotation_period',
-          'orbital_period',
-          'diameter',
-          'climate',
-          'gravity',
-          'terrain',
-          'surface_water',
-          'population',
-          'residentsLength',
-          'filmsLength',
+          {
+            id: 'name',
+            label: 'name',
+            type: 'string',
+          },
+          {
+            id: 'rotation_period',
+            label: 'rotation period',
+            type: 'number',
+          },
+          {
+            id: 'orbital_period',
+            label: 'orbital period',
+            type: 'number',
+          },
+          {
+            id: 'diameter',
+            label: 'diameter',
+            type: 'number',
+          },
+          {
+            id: 'climate',
+            label: 'climate',
+            type: 'string',
+          },
+          {
+            id: 'gravity',
+            label: 'gravity',
+            type: 'string',
+          },
+          {
+            id: 'terrain',
+            label: 'terrain',
+            type: 'string',
+          },
+          {
+            id: 'surface_water',
+            label: 'surface water',
+            type: 'number',
+          },
+          {
+            id: 'population',
+            label: 'population',
+            type: 'number',
+          },
+          {
+            id: 'residentsLength',
+            label: 'residents',
+            type: 'number',
+          },
+          {
+            id: 'filmsLength',
+            label: 'films',
+            type: 'number',
+          },
         ],
         values: newPlanets,
         actions: [
@@ -49,6 +104,7 @@ function Planets() {
               history.push(`/films`);
             },
             id: 'films',
+            checkVisible: true,
           },
           {
             label: 'Go to Residents',
@@ -60,6 +116,20 @@ function Planets() {
               history.push(`/residents`);
             },
             id: 'residents',
+            checkVisible: true,
+          },
+          {
+            label: 'Edit Planet',
+            action: (row) => {
+              onEditPlanet(row);
+            },
+          },
+          {
+            label: 'View Planet',
+            action: (row) => {
+              dispatch(viewPlanet(row));
+              history.push(`/planets/${row.name}/details`);
+            },
           },
         ],
       };
@@ -68,20 +138,23 @@ function Planets() {
     }
   }, [planets]);
 
-  const openModal = () => {
-    setOpenCreateModal(true);
-  };
-
   const closeModal = () => {
     setOpenCreateModal(false);
+    setPlanetToEdit(null);
   };
 
   return (
     <div className='App'>
       <h1>Star Wars Planets</h1>
 
-      <button onClick={openModal}>Create planet</button>
-      <CreatePlanet open={openCreateModal} closeModal={closeModal} />
+      {planetToEdit && (
+        <EditPlanet
+          planet={planetToEdit}
+          open={openCreateModal}
+          closeModal={closeModal}
+        />
+      )}
+
       {tableData ? <Grid data={tableData} /> : <p>Loading</p>}
     </div>
   );
