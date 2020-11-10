@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import './EditPlanet.css';
@@ -16,7 +17,7 @@ const customStyles = {
   },
 };
 
-const CreatePlanet = ({ planet, open, closeModal }) => {
+const EditPlanet = ({ planet, open, closeModal }) => {
   const [formValues, setFormValues] = useState(planet);
   const [isFormError, setIsFormError] = useState(false);
 
@@ -129,4 +130,18 @@ const CreatePlanet = ({ planet, open, closeModal }) => {
   );
 };
 
-export default CreatePlanet;
+EditPlanet.propTypes = {
+  planet: PropTypes.shape({
+    name: PropTypes.string,
+    rotation_period: PropTypes.string,
+    orbital_period: PropTypes.string,
+    diameter: PropTypes.string,
+    climate: PropTypes.string,
+    gravity: PropTypes.string,
+    surface_water: PropTypes.string,
+  }),
+  open: PropTypes.bool,
+  closeModal: PropTypes.func.isRequired,
+};
+
+export default EditPlanet;

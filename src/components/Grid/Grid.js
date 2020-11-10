@@ -13,8 +13,6 @@ function Grid({ data: { header = [], values = [], actions = [] } }) {
 
   const sortedHeader = [...stringTypeHeaders, ...numberTypeHeaders];
 
-  console.log(sortedHeader);
-
   return (
     <table className='gridTable'>
       <thead>

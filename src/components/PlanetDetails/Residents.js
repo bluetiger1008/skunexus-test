@@ -5,7 +5,7 @@ import Grid from '../Grid';
 
 const Residents = () => {
   const [tableData, setTableData] = useState(null);
-  const residents = useSelector((state) => state.residents.items);
+  const residents = useSelector((state) => state.app.selectedResidents);
 
   const fetchResidentsData = async () => {
     let residentsArr = [];

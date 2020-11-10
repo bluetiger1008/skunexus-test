@@ -5,7 +5,7 @@ import Grid from '../Grid';
 
 const Films = () => {
   const [tableData, setTableData] = useState(null);
-  const films = useSelector((state) => state.films.items);
+  const films = useSelector((state) => state.app.selectedFilms);
 
   const fetchFilmsData = async () => {
     let filmDataArr = [];

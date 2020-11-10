@@ -8,11 +8,13 @@ import {
   VIEW_PLANET,
 } from '../actions';
 
-const planets = (
+const app = (
   state = {
     isFetching: false,
-    items: [],
+    planets: [],
     planetDetail: null,
+    selectedFilms: [],
+    selectedResidents: [],
   },
   action
 ) => {
@@ -26,46 +28,22 @@ const planets = (
       return {
         ...state,
         isFetching: false,
-        items: action.planets,
+        planets: action.planets,
       };
     case VIEW_PLANET:
       return {
         ...state,
         planetDetail: action.planet,
       };
-    default:
-      return state;
-  }
-};
-
-const films = (
-  state = {
-    items: [],
-  },
-  action
-) => {
-  switch (action.type) {
     case GO_TO_FILMS:
       return {
         ...state,
-        items: action.films,
+        selectedFilms: action.films,
       };
-    default:
-      return state;
-  }
-};
-
-const residents = (
-  state = {
-    items: [],
-  },
-  action
-) => {
-  switch (action.type) {
     case GO_TO_RESIDENTS:
       return {
         ...state,
-        items: action.residents,
+        selectedResidents: action.residents,
       };
     default:
       return state;
@@ -75,9 +53,7 @@ const residents = (
 const createRootReducer = (history) =>
   combineReducers({
     router: connectRouter(history),
-    planets,
-    films,
-    residents,
+    app,
   });
 
 export default createRootReducer;

@@ -16,7 +16,7 @@ function Planets() {
   let history = useHistory();
   const [tableData, setTableData] = useState(null);
   const dispatch = useDispatch();
-  const planets = useSelector((state) => state.planets.items);
+  const planets = useSelector((state) => state.app.planets);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [planetToEdit, setPlanetToEdit] = useState(null);
 

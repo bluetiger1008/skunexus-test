@@ -2,9 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const Details = () => {
-  const details = useSelector((state) => state.planets.planetDetail);
-
-  console.log(details);
+  const details = useSelector((state) => state.app.planetDetail);
 
   return (
     <div>
