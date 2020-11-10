@@ -4,14 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchPlanets, goToFilms, goToResidents } from '../../actions';
 import './Planets.css';
-
 import Grid from '../Grid';
+import CreatePlanet from '../Modals';
 
 function Planets() {
   let history = useHistory();
   const [tableData, setTableData] = useState(null);
   const dispatch = useDispatch();
   const planets = useSelector((state) => state.planets.items);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchPlanets());
@@ -67,10 +68,20 @@ function Planets() {
     }
   }, [planets]);
 
+  const openModal = () => {
+    setOpenCreateModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenCreateModal(false);
+  };
+
   return (
     <div className='App'>
       <h1>Star Wars Planets</h1>
 
+      <button onClick={openModal}>Create planet</button>
+      <CreatePlanet open={openCreateModal} closeModal={closeModal} />
       {tableData ? <Grid data={tableData} /> : <p>Loading</p>}
     </div>
   );
