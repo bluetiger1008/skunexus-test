@@ -1,4 +1,11 @@
-import { REQUEST_PLANETS, RECEIVE_PLANETS } from '../actions';
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import {
+  REQUEST_PLANETS,
+  RECEIVE_PLANETS,
+  GO_TO_FILMS,
+  GO_TO_RESIDENTS,
+} from '../actions';
 
 const planets = (
   state = {
@@ -24,4 +31,46 @@ const planets = (
   }
 };
 
-export default planets;
+const films = (
+  state = {
+    items: [],
+  },
+  action
+) => {
+  switch (action.type) {
+    case GO_TO_FILMS:
+      return {
+        ...state,
+        items: action.films,
+      };
+    default:
+      return state;
+  }
+};
+
+const residents = (
+  state = {
+    items: [],
+  },
+  action
+) => {
+  switch (action.type) {
+    case GO_TO_RESIDENTS:
+      return {
+        ...state,
+        items: action.residents,
+      };
+    default:
+      return state;
+  }
+};
+
+const createRootReducer = (history) =>
+  combineReducers({
+    router: connectRouter(history),
+    planets,
+    films,
+    residents,
+  });
+
+export default createRootReducer;

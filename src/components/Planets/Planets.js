@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchPlanets } from '../../actions';
+import { fetchPlanets, goToFilms, goToResidents } from '../../actions';
 import './Planets.css';
 
 import Grid from '../Grid';
@@ -11,9 +11,7 @@ function Planets() {
   let history = useHistory();
   const [tableData, setTableData] = useState(null);
   const dispatch = useDispatch();
-  const planets = useSelector((state) => state.items);
-
-  console.log(planets);
+  const planets = useSelector((state) => state.planets.items);
 
   useEffect(() => {
     dispatch(fetchPlanets());
@@ -21,6 +19,11 @@ function Planets() {
 
   useEffect(() => {
     if (planets.length > 0) {
+      const newPlanets = planets.map((planet) => ({
+        ...planet,
+        residentsLength: planet.residents.length,
+        filmsLength: planet.films.length,
+      }));
       const data = {
         header: [
           'name',
@@ -32,16 +35,19 @@ function Planets() {
           'terrain',
           'surface_water',
           'population',
+          'residentsLength',
+          'filmsLength',
         ],
-        values: planets,
+        values: newPlanets,
         actions: [
           {
             label: 'Go to Films',
             action: (row) => {
               console.log(`redirect to grid with ${row.films.length} Films`);
-              console.log(row);
-              history.push(`/planets/${row.name}/films`);
+              dispatch(goToFilms(row.films));
+              history.push(`/films`);
             },
+            id: 'films',
           },
           {
             label: 'Go to Residents',
@@ -49,10 +55,14 @@ function Planets() {
               console.log(
                 `redirect to grid with ${row.residents.length} Residents`
               );
+              dispatch(goToResidents(row.residents));
+              history.push(`/residents`);
             },
+            id: 'residents',
           },
         ],
       };
+
       setTableData(data);
     }
   }, [planets]);

@@ -8,14 +8,17 @@ import { Films, Residents } from '../PlanetDetails';
 function App() {
   return (
     <div className='App'>
-      <Router>
+      <Switch>
         <Route exact path='/'>
           <Planets />
         </Route>
-        <Route exact path='/planets/:planetId/films'>
+        <Route exact path='/films'>
           <Films />
         </Route>
-      </Router>
+        <Route exact path='/residents'>
+          <Residents />
+        </Route>
+      </Switch>
     </div>
   );
 }
